@@ -1,67 +1,74 @@
 {% extends 'base/base.html' %}
 {% block body %}
 
-<h2>Time Study</h2>
-<form method="POST">
-    {% csrf_token %}
+<div class="container">
+    <h2>Time Study</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <label>Machine Type</label>
+        {{ form.machine }}
 
-    <label>Machine Type</label><br>
-    {{ form.machine }}<br><br>
+        <label>Batch</label>
+        {{ form.batch_no }}
 
-    <label>Batch </label><br>
-    {{ form.batch_no }}<br><br>
+        <label>Machine Number</label>
+        <select name="machine_no" required>
+            <option value="">Select Machine Number</option>
+            {% for number in numbers %}
+                <option value="{{ number }}">{{ number }}</option>
+            {% endfor %}
+        </select>
 
-    <label>Machine Number</label><br>
-    <select name="machine_no" required>
-        <option value="">Select Machine Number</option>
-        {% for number in numbers %}
-            <option value="{{ number }}">{{ number }}</option>
-        {% endfor %}
-    </select><br><br>
+        <label>Operation Name</label>
+        {{ form.operation }}
 
-    <label>Operation Name</label><br>
-    {{ form.operation }}<br><br>
+        <div style="display:none;">
+            {{ form.operator }}
+        </div>
 
+        <h3>Scan Operator QR</h3>
 
-    <div style="display: none;">
-        {{ form.operator }}
-    </div>
+        <div class="qr-box">
+            <div id="reader"></div>
+        </div>
 
-    <h3>Scan Operator QR</h3>
-    <div id="reader"></div>
+        <label>Operator Name</label>
+        <input type="text" id="operator_name" readonly>
 
-    <label>Operator Name</label><br>
-    <input type="text" id="operator_name" readonly><br><br>
+        <label>Token ID</label>
+        <input type="text" id="token_id" readonly>
 
-    <label>Token ID</label><br>
-    <input type="text" id="token_id" readonly><br><br>
+        <h2 id="display">0.000</h2>
 
-    <h2 id="display">0.000</h2>
-    <button type="button" onclick="startWatch()">Start</button>
-    <button type="button" onclick="stopWatch()">Stop</button>
-    <button type="button" onclick="resetWatch()">Reset</button>
-    <br><br>
+        <div class="timer-buttons">
+            <button type="button" onclick="startWatch()">Start</button>
+            <button type="button" onclick="stopWatch()">Stop</button>
+            <button type="button" onclick="resetWatch()">Reset</button>
+        </div>
 
-    <label>Reading 1</label><br>
-    {{ form.reading1 }}<br><br>
+        <label>Reading 1</label>
+        {{ form.reading1 }}
 
-    <label>Reading 2</label><br>
-    {{ form.reading2 }}<br><br>
+        <label>Reading 2</label>
+        {{ form.reading2 }}
 
-    <label>Reading 3</label><br>
-    {{ form.reading3 }}<br><br>
+        <label>Reading 3</label>
+        {{ form.reading3 }}
 
-    <label>Reading 4</label><br>
-    {{ form.reading4 }}<br><br>
+        <label>Reading 4</label>
+        {{ form.reading4 }}
 
-    <label>Reading 5</label><br>
-    {{ form.reading5 }}<br><br>
+        <label>Reading 5</label>
+        {{ form.reading5 }}
 
-    <label>Allowance (%)</label><br>
-    {{ form.allowance }}<br><br>
+        <label>Allowance (%)</label>
+        {{ form.allowance }}
 
-    <button type="submit">Save Time Study</button>
-</form>
+        <button type="submit">
+            Save Time Study
+        </button>
+    </form>
+</div>
 
 <script src="https://unpkg.com/html5-qrcode"></script>
 
@@ -80,6 +87,7 @@
             scanner.clear();
         });
     }
+
     let scanner = new Html5QrcodeScanner(
         "reader",
         {
@@ -88,7 +96,6 @@
         }
     );
     scanner.render(onScanSuccess);
-
 </script>
 
 <script>
@@ -106,12 +113,10 @@
         startTime = Date.now() - elapsedTime;
         timer = setInterval(function(){
             elapsedTime = Date.now() - startTime;
-            let seconds = elapsedTime / 1000;
             document.getElementById("display").innerHTML =
-                seconds.toFixed(3);
+                (elapsedTime/1000).toFixed(3);
         },10);
     }
-
 
     function stopWatch(){
         if(!running){
@@ -119,7 +124,6 @@
         }
         clearInterval(timer);
         running = false;
-
         let value = (elapsedTime/1000).toFixed(3);
         if(reading==1){
             document.getElementById("id_reading1").value=value;
@@ -133,21 +137,18 @@
         else if(reading==4){
             document.getElementById("id_reading4").value=value;
         }
-        else if(reading==5){
+        else if(reading==5)
             document.getElementById("id_reading5").value=value;
             alert("All readings completed");
         }
         reading++;
-    }
-
 
     function resetWatch(){
         clearInterval(timer);
-        running = false;
+        running = false
         elapsedTime = 0;
         startTime = 0;
         document.getElementById("display").innerHTML = "0.000";
     }
-</script>
-
+    </script>
 {% endblock %}

@@ -27,6 +27,9 @@
 
 
 <h3>Operator List</h3>
+
+<div class="table-container">
+
 <table>
     <tr>
         <th>S.no</th>
@@ -50,38 +53,15 @@
         </td>
         <td>
             {% if operator.qr_code %}
-            <a href="{{ operator.qr_code.url }}"
-            download="{{ operator.name }}_{{ operator.token_id }}.png">
-                 Download
-            </a>
+                <a href="{{ operator.qr_code.url }}"
+                   download="{{ operator.name }}_{{ operator.token_id }}.png">
+                    Download
+                </a>
             {% endif %}
         </td>
     </tr>
     {% endfor %}
-</table><br><br><br>
-
-<div>
-    {% if operators.has_previous %}
-        <a href="?page=1">First</a>
-        <a href="?page={{ operators.previous_page_number }}">
-            Previous
-        </a>
-    {% endif %}
-
-    <span>
-        Page {{ operators.number }} of {{ operators.paginator.num_pages }}
-    </span>
-
-    {% if operators.has_next %}
-        <a href="?page={{ operators.next_page_number }}">
-            Next
-        </a>
-
-        <a href="?page={{ operators.paginator.num_pages }}">
-            Last
-        </a>
-    {% endif %}
+</table>
 
 </div>
-
 {% endblock %}
