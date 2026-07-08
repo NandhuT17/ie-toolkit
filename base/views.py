@@ -11,6 +11,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.paginator import Paginator
 import string
+import os
 
 
 def register_user(request) :
@@ -86,7 +87,9 @@ def operators(request):
                 operator = form.save()
                 qr = qrcode.make(operator.token_id)
                 filename = f"{operator.name}_{operator.token_id}.png"
-                qr.save("media/qr_codes/" + filename)
+                folder = "media/qr_codes"
+                os.makedirs(folder, exist_ok=True)
+                qr.save(os.path.join(folder, filename))
                 operator.qr_code = "qr_codes/" + filename
                 operator.save()
                 messages.success(request, "Operator added successfully.")
