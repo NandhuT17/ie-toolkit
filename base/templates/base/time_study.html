@@ -8,8 +8,15 @@
         <label>Machine Type</label>
         {{ form.machine }}
 
-        <label>Batch</label>
-        {{ form.batch_no }}
+        <label>Batch</label><br>
+        <select name="batch_no" id="id_batch_no" required>
+            <option value="">Select Batch</option>
+            {% for batch in batches %}
+                <option value="{{ batch }}">
+                    {{ batch }}
+                </option>
+            {% endfor %}
+        </select><br><br>
 
         <label>Machine Number</label>
         <select name="machine_no" required>

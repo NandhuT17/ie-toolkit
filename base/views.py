@@ -157,6 +157,7 @@ def time_study(request):
         "form": form,
         "operator": operator,
         "numbers": numbers,
+        "batches": list(string.ascii_uppercase)
     }
     return render(request, "base/time_study.html", context)
 
@@ -181,7 +182,6 @@ def export_excel(request):
     batch = request.GET.get("batch")
     target = float(request.GET.get("target"))
     batch = request.GET.get("batch")
-    target = request.GET.get("target")
     studies = TimeStudy.objects.filter(
         batch_no=batch,
         date=selected_date
