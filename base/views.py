@@ -43,17 +43,20 @@ def register_user(request) :
 
 def login_page(request):
     if request.method == "POST":
-        username = request.POST["username"]
+        email = request.POST["email"]
         password = request.POST["password"]
-        user = authenticate(
-            request,
-            username=username,
-            password=password
-        )
-
-        if user is not None:
-            login(request, user)
-            return redirect("dashboard")
+        try:
+            user = User.objects.get(email=email)
+            authenticated_user = authenticate(
+                request,
+                username=user.username,
+                password=password
+            )
+            if authenticated_user is not None:
+                login(request, authenticated_user)
+                return redirect("dashboard")
+        except User.DoesNotExist:
+            pass
     return render(request, "base/login.html")
 
 

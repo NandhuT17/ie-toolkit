@@ -1,31 +1,24 @@
 {% extends 'base/base.html' %}
 {% block body %}
 
-<h2>Dashboard</h2>
-<h3>Welcome {{ request.user.username }}</h3>
-
-<p>Select an option below.</p>
-<table>
-    <tr>
-        <td>
-            <a href="{% url 'operators' %}"> Operator Management</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a href="{% url 'machines' %}"> Machine Management</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a href="{% url 'time_study' %}"> New Time Study</a>
-        </td>
-    </tr>
-    <tr>
-        <td>
-            <a href="{% url 'history' %}"> Study History</a>
-        </td>
-    </tr>
-</table>
+<div class="container">
+    <h2>Dashboard</h2>
+    <h3>Welcome {{ request.user.username }}</h3>
+    <p>Select an option below.</p>
+    <div class="dashboard">
+        <a href="{% url 'operators' %}" class="dashboard-card">
+            Operator Management
+        </a>
+        <a href="{% url 'machines' %}" class="dashboard-card">
+            Machine Management
+        </a>
+        <a href="{% url 'time_study' %}" class="dashboard-card">
+            New Time Study
+        </a>
+        <a href="{% url 'history' %}" class="dashboard-card">
+            Study History
+        </a>
+    </div>
+</div>
 
 {% endblock %}
