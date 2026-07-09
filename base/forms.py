@@ -20,6 +20,7 @@ class TimeStudyForm(forms.ModelForm):
             'machine',
             'batch_no',
             'operation',
+            'date',
             'reading1',
             'reading2',
             'reading3',
@@ -29,3 +30,7 @@ class TimeStudyForm(forms.ModelForm):
             'allowance',
             'capacity'
         ]
+
+        widgets = {
+            "date": forms.DateInput(attrs={"type": "date"}),
+        }

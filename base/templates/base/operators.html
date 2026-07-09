@@ -12,9 +12,9 @@
     {% endfor %}
 {% endif %}
 
-
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
+
     <label>Operator Name</label><br>
     <input type="text" name="name" id="id_name" autofocus><br><br>
 
@@ -24,44 +24,55 @@
     <button type="submit">Save</button>
 </form>
 
-
-
 <h3>Operator List</h3>
 
 <div class="table-container">
+    <table>
+        <tr>
+            <th>S.No</th>
+            <th>Name</th>
+            <th>Token ID</th>
+            <th>QR Code</th>
+            <th>Download</th>
+        </tr>
+        {% for operator in operators %}
+        <tr>
+            <td>{{ forloop.counter0|add:operators.start_index }}</td>
+            <td>{{ operator.name }}</td>
+            <td>{{ operator.token_id }}</td>
+            <td>
+                {% if operator.qr_code %}
+                    <img src="{{ operator.qr_code.url }}" width="80">
+                {% else %}
+                    No QR
+                {% endif %}
+            </td>
+            <td>
+                {% if operator.qr_code %}
+                    <a href="{{ operator.qr_code.url }}"
+                    download="{{ operator.name }}_{{ operator.token_id }}.png">
+                        Download
+                    </a>
+                {% endif %}
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
-<table>
-    <tr>
-        <th>S.no</th>
-        <th>Name</th>
-        <th>Token ID</th>
-        <th>QR Code</th>
-        <th>Download</th>
-    </tr>
+<br>
 
-    {% for operator in operators %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ operator.name }}</td>
-        <td>{{ operator.token_id }}</td>
-        <td>
-            {% if operator.qr_code %}
-                <img src="{{ operator.qr_code.url }}" width="80">
-            {% else %}
-                No QR
-            {% endif %}
-        </td>
-        <td>
-            {% if operator.qr_code %}
-                <a href="{{ operator.qr_code.url }}"
-                   download="{{ operator.name }}_{{ operator.token_id }}.png">
-                    Download
-                </a>
-            {% endif %}
-        </td>
-    </tr>
-    {% endfor %}
-</table>
-
+<div class="pagination">
+    {% if operators.has_previous %}
+        <a href="?page=1">First</a>
+        <a href="?page={{ operators.previous_page_number }}">Previous</a>
+    {% endif %}
+    <span>
+        Page {{ operators.number }} of {{ operators.paginator.num_pages }}
+    </span>
+    {% if operators.has_next %}
+        <a href="?page={{ operators.next_page_number }}">Next</a>
+        <a href="?page={{ operators.paginator.num_pages }}">Last</a>
+    {% endif %}
 </div>
 {% endblock %}

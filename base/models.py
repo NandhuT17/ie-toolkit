@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 
 class Operator(models.Model):
@@ -31,7 +32,7 @@ class TimeStudy(models.Model):
     average = models.FloatField(blank=True, null=True)
     allowance = models.FloatField()
     capacity = models.FloatField(blank=True,null=True)
-    date = models.DateField(auto_now_add=True)
+    date = models.DateField(default=timezone.now)
 
     def __str__(self):
         return f"{self.operator.name} - {self.operation}"

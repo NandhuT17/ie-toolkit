@@ -5,6 +5,10 @@
     <h2>Time Study</h2>
     <form method="POST">
         {% csrf_token %}
+
+        <label>Date</label>
+        {{ form.date }}
+
         <label>Machine Type</label>
         {{ form.machine }}
 
