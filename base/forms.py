@@ -7,6 +7,10 @@ class OperatorForm(forms.ModelForm):
         model = Operator
         fields = '__all__'
 
+    def clean_name(self):
+        name = self.cleaned_data["name"]
+        return name.upper()
+
 class MachineForm(forms.ModelForm):
     class Meta:
         model = Machine
