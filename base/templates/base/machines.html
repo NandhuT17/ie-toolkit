@@ -20,22 +20,24 @@
 
 
 <h3>Machine List</h3>
-<table class="table-container">
-    <tr>
-        <th>S.no</th>
-        <th>Machine Model</th>
-    </tr>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>S.no</th>
+            <th>Machine Model</th>
+        </tr>
 
-    {% for machine in machines %}
-    <tr>
-        <td>{{ forloop.counter }}</td>
-        <td>{{ machine.machine_model }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td colspan="2">No machines added.</td>
-    </tr>
-    {% endfor %}
-</table>
+        {% for machine in machines %}
+        <tr>
+            <td>{{ forloop.counter }}</td>
+            <td>{{ machine.machine_model }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="2">No machines added.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}

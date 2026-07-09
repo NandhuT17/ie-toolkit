@@ -36,34 +36,37 @@
     <button type="submit">Search</button>
 </form>
 <br><br>
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Operator</th>
-        <th>Machine</th>
-        <th>Batch No</th>
-        <th>Operation</th>
-        <th>Average</th>
-        <th>Allowance</th>
-        <th>Capacity</th>
-    </tr>
 
-    {% for study in studies %}
-    <tr>
-        <td>{{ study.date }}</td>
-        <td>{{ study.operator }}</td>
-        <td>{{ study.machine }}</td>
-        <td>{{ study.batch_no }}</td>
-        <td>{{ study.operation }}</td>
-        <td>{{ study.average | floatformat:2 }}</td>
-        <td>{{ study.allowance }}</td>
-        <td>{{ study.capacity|floatformat:2 }}</td>
-    </tr>
-    {% empty %}
-    <tr>
-        <td>No records found.</td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="table-container">
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Operator</th>
+            <th>Machine</th>
+            <th>Batch No</th>
+            <th>Operation</th>
+            <th>Average</th>
+            <th>Allowance</th>
+            <th>Capacity</th>
+        </tr>
+
+        {% for study in studies %}
+        <tr>
+            <td>{{ study.date }}</td>
+            <td>{{ study.operator }}</td>
+            <td>{{ study.machine }}</td>
+            <td>{{ study.batch_no }}</td>
+            <td>{{ study.operation }}</td>
+            <td>{{ study.average | floatformat:2 }}</td>
+            <td>{{ study.allowance }}</td>
+            <td>{{ study.capacity|floatformat:2 }}</td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td>No records found.</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
 
 {% endblock %}
