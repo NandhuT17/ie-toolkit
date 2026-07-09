@@ -126,7 +126,7 @@
         timer = setInterval(function(){
             elapsedTime = Date.now() - startTime;
             document.getElementById("display").innerHTML =
-                (elapsedTime/1000).toFixed(3);
+                (elapsedTime / 1000).toFixed(3);
         },10);
     }
 
@@ -136,28 +136,36 @@
         }
         clearInterval(timer);
         running = false;
-        let value = (elapsedTime/1000).toFixed(3);
-        if(reading==1){
-            document.getElementById("id_reading1").value=value;
-        }
-        else if(reading==2){
-            document.getElementById("id_reading2").value=value;
-        }
-        else if(reading==3){
-            document.getElementById("id_reading3").value=value;
-        }
-        else if(reading==4){
-            document.getElementById("id_reading4").value=value;
-        }
-        else if(reading==5)
-            document.getElementById("id_reading5").value=value;
-            alert("All readings completed");
+
+        let value = (elapsedTime / 1000).toFixed(3);
+        switch(reading){
+            case 1:
+                document.getElementById("id_reading1").value = value;
+                break;
+            case 2:
+                document.getElementById("id_reading2").value = value;
+                break;
+            case 3:
+                document.getElementById("id_reading3").value = value;
+                break;
+            case 4:
+                document.getElementById("id_reading4").value = value;
+                break;
+            case 5:
+                document.getElementById("id_reading5").value = value;
+                alert("All 5 readings completed.");
+                break;
+            default:
+                alert("Maximum of 5 readings already entered.");
+                return;
         }
         reading++;
+    }
+
 
     function resetWatch(){
         clearInterval(timer);
-        running = false
+        running = false;
         elapsedTime = 0;
         startTime = 0;
         document.getElementById("display").innerHTML = "0.000";
