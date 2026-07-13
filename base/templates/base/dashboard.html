@@ -5,20 +5,24 @@
     <h2>Dashboard</h2>
     <h3>Welcome {{ request.user.username }}</h3>
     <p>Select an option below.</p>
-    <div class="dashboard">
-        <a href="{% url 'operators' %}" class="dashboard-card">
-            Operator Management
-        </a>
-        <a href="{% url 'machines' %}" class="dashboard-card">
-            Machine Management
-        </a>
-        <a href="{% url 'time_study' %}" class="dashboard-card">
-            New Time Study
-        </a>
-        <a href="{% url 'history' %}" class="dashboard-card">
-            Study History
-        </a>
-    </div>
+    {% if user.is_authenticated %}
+        <div class="dashboard">
+            <a href="{% url 'operators' %}" class="dashboard-card">
+                Operator Management
+            </a>
+            <a href="{% url 'machines' %}" class="dashboard-card">
+                Machine Management
+            </a>
+            <a href="{% url 'time_study' %}" class="dashboard-card">
+                New Time Study
+            </a>
+            <a href="{% url 'history' %}" class="dashboard-card">
+                Study History
+            </a>
+        </div>
+    {% else %}
+        <h3><a href="{% url 'login' %}">Login</a> to unlock Features</h3>
+    {% endif %}
 </div>
 
 {% endblock %}
