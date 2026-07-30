@@ -71,8 +71,8 @@ toolkit/
 ### Clone the repository
 
 ```bash
-git clone 
-cd 
+git clone https://github.com/NandhuT17/ie-toolkit.git
+cd ie-toolkit
 ```
 
 ### Create a virtual environment
@@ -135,6 +135,9 @@ Efficiency (%) = (Capacity / Target) × 100
 ---
 
 
+## Contributor
+
+**Sanjeev** - JavaScript
 
 ## Author
 
